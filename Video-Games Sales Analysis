@@ -1,0 +1,99 @@
+import pandas as pd 
+
+import matplotlib.pyplot as plt 
+
+# data source:			 https://www.kaggle.com/gregorut/videogamesales
+
+#QUESTION: WHICH YEAR SAW THE MOST SALES FOR VIDEO GAMES?
+
+df = pd.read_csv('vgsales.csv')
+
+nan_value = float("NaN")
+df.replace("", nan_value, inplace=True)
+df.dropna(subset = ['Year'], inplace=True)
+
+df2 = pd.DataFrame()
+
+df2 = df
+
+df2 = df2.groupby('Year').sum()
+
+#plotting the values
+
+years = [year for year, df in  df2.groupby('Year')]
+
+plt.bar(years, df2['Global_Sales'])
+
+plt.xlabel('Years', size=15)
+plt.ylabel('Global Sales', size=15)
+
+plt.show()
+#ANSWER : 2008
+
+# QUESTION: WHICH VIDEO GAME SAW THE MOST SALES?
+
+df3 = pd.DataFrame()
+
+df3 = df
+
+df3 = df3.groupby('Name').sum().sort_values('Global_Sales', ascending=False).head(6)
+
+names =  [name for name, df in df3.groupby('Name')]
+
+plt.bar(names, df3['Global_Sales'])
+
+plt.xlabel('Video Games', size=15)
+plt.ylabel('Global Sales', size=15)
+
+plt.xticks(names, size=5)
+
+plt.show()
+
+# ANSWER: Grand Theft Auto V
+
+# QUESTION: WHICH CONTINENT/REGION SAW THE HIGHEST SALES ON 'PS2' PLATFORM?
+
+df5 = pd.DataFrame()
+
+df5 = df
+df5 = df5.loc[(df5['Platform'] == 'PS2')].groupby('Platform').sum()
+
+#print(df5)
+#So from the output we get above, we can plot the values as follows:
+
+x = ['North America', 'Europe', 'Japan']
+y = [572.92, 332.63, 137.54]
+
+plt.bar(x, y)
+
+plt.xlabel('Continents/Countries', size=15)
+plt.ylabel('Sales', size=15)
+
+plt.xticks(x)
+
+plt.show()
+
+#ANSWER: NORTH AMERICA
+
+# QUESTION: WHICH GENRE DO MOST OF THE GAMES BELONG TO?
+
+df6 = pd.DataFrame()
+
+df6 = df
+
+df6['count'] = 1
+
+df6 = df6.groupby('Genre').sum()
+
+genres = [genre for genre, df in df6.groupby('Genre')]
+
+plt.bar(genres, df6['count'])
+
+plt.xlabel('Genres', size=15)
+plt.ylabel('Total Games Developed', size=15)
+
+plt.xticks(genres, size=6)
+
+plt.show()
+
+#ANSWER: ACTION GAMES WERE DEVELOPED THE MOST
