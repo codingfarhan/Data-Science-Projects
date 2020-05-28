@@ -24,6 +24,8 @@ years = [year for year, df in  df2.groupby('Year')]
 
 plt.bar(years, df2['Global_Sales'])
 
+plt.title('Global Sales over the years')
+
 plt.xlabel('Years', size=15)
 plt.ylabel('Global Sales', size=15)
 
@@ -41,6 +43,7 @@ df3 = df3.groupby('Name').sum().sort_values('Global_Sales', ascending=False).hea
 names =  [name for name, df in df3.groupby('Name')]
 
 plt.bar(names, df3['Global_Sales'])
+plt.title('Games with most sales')
 
 plt.xlabel('Video Games', size=15)
 plt.ylabel('Global Sales', size=15)
@@ -65,6 +68,7 @@ x = ['North America', 'Europe', 'Japan']
 y = [572.92, 332.63, 137.54]
 
 plt.bar(x, y)
+plt.title('Regions with highest sales')
 
 plt.xlabel('Continents/Countries', size=15)
 plt.ylabel('Sales', size=15)
@@ -88,6 +92,7 @@ df6 = df6.groupby('Genre').sum()
 genres = [genre for genre, df in df6.groupby('Genre')]
 
 plt.bar(genres, df6['count'])
+plt.title('Distribution of games among Genres')
 
 plt.xlabel('Genres', size=15)
 plt.ylabel('Total Games Developed', size=15)
